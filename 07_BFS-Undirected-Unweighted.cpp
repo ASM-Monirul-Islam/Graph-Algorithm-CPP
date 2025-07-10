@@ -44,7 +44,9 @@ int main() {
 		AdjList[node[y]].push_back(node[x]);
 	}
 	vector<bool>visited(v, false);
-	vector<int>ans = BFS(0, AdjList, visited);
+	cout<<"Enter starting node: ";
+	cin>>n;
+	vector<int>ans = BFS(node[n], AdjList, visited);
 	for(auto i: ans){
 		cout<<inverse_node[i]<<" ";
 	}
@@ -65,5 +67,6 @@ Enter the starting node and the ending node: B D
 Enter the starting node and the ending node: B C
 Enter the starting node and the ending node: C E
 Enter the starting node and the ending node: D E
-A B C D E
+Enter starting node: E
+E C D A B 
 */
