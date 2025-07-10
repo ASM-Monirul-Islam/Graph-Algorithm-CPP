@@ -1,24 +1,6 @@
 #include<bits/stdc++.h>
 using namespace std;
-/*Undirected Weighted Graph - Adjacency List
-
-A->B = 2
-A->D = 1
-B->C = 4
-B->D = 3
-C->E = 7
-D->E = 9
-
-Output:
-
-A-> (B,2),(D,1)
-B-> (A,2),(C,4),(D,3)
-C-> (B,4),(E,7)
-D-> (A,1),(B,3),(E,9)
-E-> (C,7),(D,9)
-
-*/
-
+//Undirected Weighted Graph - Adjacency List
 int main() {
 	int v, e, weight;
 	char n, x, y;
@@ -51,3 +33,24 @@ int main() {
 	}
 	return 0;
 }
+
+/*
+Enter the vertices and edges number: 5 6
+Enter the names of nodes: 
+ Node 1: A
+ Node 2: B
+ Node 3: C
+ Node 4: D
+ Node 5: E
+Enter the starting node and the ending node and the weight: A B 2
+Enter the starting node and the ending node and the weight: A D 1
+Enter the starting node and the ending node and the weight: B C 4
+Enter the starting node and the ending node and the weight: B D 3
+Enter the starting node and the ending node and the weight: C E 7
+Enter the starting node and the ending node and the weight: D E 9
+A-> (B,2),(D,1)
+B-> (A,2),(C,4),(D,3)
+C-> (B,4),(E,7)
+D-> (A,1),(B,3),(E,9)
+E-> (C,7),(D,9)
+*/

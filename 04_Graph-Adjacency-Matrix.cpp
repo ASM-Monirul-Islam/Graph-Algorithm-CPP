@@ -1,17 +1,8 @@
 #include<bits/stdc++.h>
 using namespace std;
-/*
-Directed Weighted Graph
-A->B = 1
-B->C = 4
-B->D = 5
-C->D = 3
-D->C = 8
-E->A = 4
-E->B = 6
-E->D = 2
-E->E = 7
-*/
+
+//Directed Weighted Graph
+
 
 int main() {
 	int v, e, weight;
@@ -38,3 +29,22 @@ int main() {
 	}
 	return 0;
 }
+
+/*
+Enter the number of vertex and edges: 5 9
+Enter the names of the nodes (e.g.: A B C...): A B C D E
+Enter the starting node and ending node and the weight: A B 1
+Enter the starting node and ending node and the weight: B C 4
+Enter the starting node and ending node and the weight: B D 5
+Enter the starting node and ending node and the weight: C D 3
+Enter the starting node and ending node and the weight: D C 8
+Enter the starting node and ending node and the weight: E A 4
+Enter the starting node and ending node and the weight: E B 6
+Enter the starting node and ending node and the weight: E D 2
+Enter the starting node and ending node and the weight: E E 7
+0 1 0 0 0 
+0 0 4 5 0
+0 0 0 3 0
+0 0 8 0 0
+4 6 0 2 7
+*/
