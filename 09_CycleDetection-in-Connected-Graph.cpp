@@ -36,9 +36,7 @@ int main() {
 		adj[node[y]].push_back(node[x]);
 	}
 	vector<bool>visited(v, false);
-	cout<<"Starting node: ";
-	cin>>n;
-	bool ans = DetectCycle(node[n], -1, adj, visited);
+	bool ans = DetectCycle(0, -1, adj, visited);
 	if(ans) {
 		cout<<"Cycle Detected!"<<endl;
 	} else {

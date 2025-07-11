@@ -1,16 +1,18 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool DetectCycle(int node, int parent, vector<vector<int>>& adj, vector<bool>& visited) {
+/*
+				A			D -- E			E -- G
+		       / \						     \  /
+		      B   C						       H
+*/
+
+bool CycleCheck(int node, int parent, vector<vector<int>>& adj, vector<bool>& visited) {
 	visited[node]=true;
-	for(auto i: adj[node]) {
-		if(parent == i) {
-			continue;
-		}
-		if(visited[i]) {
-			return true;
-		}
-		if(DetectCycle(i, node, adj, visited)) return true;
+	for(auto i: adj[node]){
+		if(i==parent) continue;
+		if(visited[i]) return true;
+		if(CycleCheck(i, node, adj, visited)) return true;
 	}
 	return false;
 }
@@ -29,7 +31,7 @@ int main() {
 		node[n]=i;
 		inverse_node[i]=n;
 	}
-	cout<<"Enter the starting node and ending node: "<<endl;
+	cout<<"Enter the starting node and the ending node: "<<endl;
 	for(int i=0; i<e; i++) {
 		cin>>x>>y;
 		adj[node[x]].push_back(node[y]);
@@ -39,16 +41,29 @@ int main() {
 	bool hasCycle = false;
 	for(int i=0; i<v; i++) {
 		if(!visited[i]) {
-			if(DetectCycle(0, -1, adj, visited)) {
+			if(CycleCheck(0, -1, adj, visited)) {
 				hasCycle = true;
 				break;
 			}
 		}
 	}
 	if(hasCycle) {
-		cout<<"Cycle Detected!"<<endl;
+		cout<<"Cycle Found in the Graph!"<<endl;
 	} else {
-		cout<<"No Cycle Found"<<endl;
+		cout<<"Cycle not Found!"<<endl;
 	}
 	return 0;
 }
+
+/*
+Enter the number of vertices and edges: 8 6
+Enter the name of the nodes: A B C D E F G H
+Enter the starting node and the ending node: 
+A B
+A C
+D E
+F G
+F H
+G H
+Cycle Found in the Graph!
+*/
