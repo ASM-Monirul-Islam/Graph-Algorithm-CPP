@@ -1,15 +1,18 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// Undirected Unweighted Graph
-
-bool DetectCycle(int node, int parent, vector<vector<int>>&adj, vector<bool>& visited) {
+bool DetectCycle(int node, int parent, vector<vector<int>>& adj, vector<bool>& visited) {
 	visited[node]=true;
 	for(auto i: adj[node]) {
-		if(i==parent) continue;
-		if(visited[i]) return true;
-		if (DetectCycle(i, node, adj, visited)) return true; 
+		if(parent == i) {
+			continue;
+		}
+		if(visited[i]) {
+			return true;
+		}
+		if(DetectCycle(i, node, adj, visited)) return true;
 	}
+	return false;
 }
 
 int main() {
@@ -19,28 +22,27 @@ int main() {
 	unordered_map<int, char>inverse_node;
 	cout<<"Enter the number of vertices and edges: ";
 	cin>>v>>e;
-	cout<<"Enter the names of the nodes: ";
+	vector<vector<int>>adj(v);
+	cout<<"Enter the name of the nodes: ";
 	for(int i=0; i<v; i++) {
 		cin>>n;
 		node[n]=i;
 		inverse_node[i]=n;
 	}
-	vector<vector<int>>adj(v);
-	cout<<"Enter the starting edge and ending node: "<<endl;
+	cout<<"Enter the starting node and ending node: "<<endl;
 	for(int i=0; i<e; i++) {
-		cout<<"node 1 -> node 2 : ";
 		cin>>x>>y;
 		adj[node[x]].push_back(node[y]);
 		adj[node[y]].push_back(node[x]);
 	}
+	vector<bool>visited(v, false);
 	cout<<"Starting node: ";
 	cin>>n;
-	vector<bool>visited(v, false);
 	bool ans = DetectCycle(node[n], -1, adj, visited);
 	if(ans) {
 		cout<<"Cycle Detected!"<<endl;
 	} else {
-		cout<<"No Cycle Detected!"<<endl;
+		cout<<"No Cycle Found"<<endl;
 	}
 	return 0;
 }
