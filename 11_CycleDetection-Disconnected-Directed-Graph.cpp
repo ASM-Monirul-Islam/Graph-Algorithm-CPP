@@ -1,19 +1,19 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool DetectCycle(int node, int parent, vector<vector<int>>& adj, vector<bool>& visited) {
-	visited[node] = true;
-	for(auto i: adj[node]) {
-		if(i==parent) {
-			return true;
-		}
-		if(visited[i]) {
-			return true;
-		}
-		if(DetectCycle(i, node, adj, visited)) {
+bool DetectCycle(int node, vector<vector<int>>& adj, vector<bool>& visited, vector<bool>& recStack) {
+	visited[node]=true;
+	recStack[node]=true;
+	for(auto i : adj[node]) {
+		if(!visited[i]) {
+			if(DetectCycle(i, adj, visited, recStack)) {
+				return true;
+			}
+		} else if(recStack[i]) {
 			return true;
 		}
 	}
+	recStack[node]=false;
 	return false;
 }
 
@@ -37,11 +37,11 @@ int main() {
 		adj[node[x]].push_back(node[y]);
 	}
 	vector<bool>visited(v, false);
-	// vector<bool>recStack(v, false);
+	vector<bool>recStack(v, false);
 	bool hasCycle = false;
 	for(int i=0; i<v; i++) {
 		if(!visited[i]) {
-			if(DetectCycle(0, -1, adj, visited)) {
+			if(DetectCycle(0, adj, visited, recStack)) {
 				hasCycle = true;
 			}
 		}
