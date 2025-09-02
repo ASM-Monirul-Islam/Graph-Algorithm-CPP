@@ -41,7 +41,7 @@ int main() {
 	bool hasCycle = false;
 	for(int i=0; i<v; i++) {
 		if(!visited[i]) {
-			if(DetectCycle(0, adj, visited, recStack)) {
+			if(DetectCycle(i, adj, visited, recStack)) {
 				hasCycle = true;
 			}
 		}
