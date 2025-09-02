@@ -1,57 +1,54 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-bool detectCycle(int node, vector<vector<int>>&adj, vector<bool>& visited, vector<bool>& recStack) {
-	visited[node] = true;
-	recStack[node] = true;
+void DFS(int node, vector<vector<int>>&adj, vector<bool>& visited, stack<int>&s) {
+	visited[node]=true;
 	for(auto i:adj[node]) {
 		if(!visited[i]) {
-			if(detectCycle(i, adj, visited, recStack)) {
-				return true;
-			} 
-		} else if(recStack[i]) {
-			return true;
+			DFS(i, adj, visited, s);
 		}
 	}
-	recStack[node]=false;
-	return false;
+	s.push(node);
+}
+
+vector<int>TopologicalSort(int v, vector<vector<int>>&adj) {
+	stack<int>s;
+	vector<bool>visited(v, false);
+	for(int i=0; i<v; i++) {
+		if(!visited[i]) {
+			DFS(i, adj, visited, s);
+		}
+	}
+	vector<int>ans;
+	while(!s.empty()) {
+		ans.push_back(s.top());
+		s.pop();
+	}
+	return ans;
 }
 
 int main() {
 	int v, e;
 	char n, x, y;
-	unordered_map<char, int>node;
-	unordered_map<int, char>inverse_node;
-	cout<<"Enter the number of the vertices and the edges: ";
+	map<char, int>node;
+	map<int, char>inverse_node;
+	cout<<"Enter the vertex and edges number: ";
 	cin>>v>>e;
-	vector<vector<int>>adj(v);
-	cout<<"Enter the name of the nodes: ";
+	cout<<"Enter the name of the nodes: (e.g.: A, B, C, ...): ";
 	for(int i=0; i<v; i++) {
 		cin>>n;
 		node[n]=i;
 		inverse_node[i]=n;
 	}
-	cout<<"Enter the nodes (from to): "<<endl;
+	vector<vector<int>>adj(v);
 	for(int i=0; i<e; i++) {
+		cout<<"Enter the starting node and the ending node: ";
 		cin>>x>>y;
 		adj[node[x]].push_back(node[y]);
 	}
-	vector<bool>visited(v, false);
-	vector<bool>recStack(v, false);
-	bool hasCycle = false;
-
-	for(int i=0; i<v; i++) {
-		if(!visited[i]) {
-			if(detectCycle(i, adj, visited, recStack)) {
-				hasCycle = true;
-				break;
-			}
-		}
-	}
-	if(hasCycle) {
-		cout<<"Detected a cycle"<<endl;
-	} else {
-		cout<<"No cycle detected"<<endl;
+	vector<int>ans = TopologicalSort(v, adj);
+	for(auto i: ans) {
+		cout<<inverse_node[i]<<" ";
 	}
 	return 0;
 }
