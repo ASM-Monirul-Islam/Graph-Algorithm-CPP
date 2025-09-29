@@ -50,11 +50,9 @@ int checkCovid(int r, int c, vector<vector<int>>& adj, queue<pair<int, int>>& q)
 
 int main() {
 	int r, c;
-	cout<<"Enter the  number of rows and columns: ";
 	cin>>r>>c;
 	vector<vector<int>>adj(r, vector<int>(c));
 	queue<pair<int, int>>q;
-	cout<<"Enter the nodes: "<<endl;
 	for(int i=0; i<r; i++) {
 		for(int j=0; j<c; j++) {
 			cin>>adj[i][j];

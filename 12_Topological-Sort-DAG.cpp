@@ -48,13 +48,13 @@ int main() {
 	unordered_map<int, char>inverseNode;
 	cout<<"Enter the number of vertices and edges: ";
 	cin>>v>>e;
+	vector<vector<int>>adj(v);
 	cout<<"Enter the name of the vertices: ";
 	for(int i=0; i<v; i++) {
 		cin>>n;
 		node[n]=i;
 		inverseNode[i]=n;
 	}
-	vector<vector<int>>adj(v);
 
 	cout<<"Enter the edges: (A -> B): "<<endl;
 	for(int i=0; i<e; i++) {
@@ -64,10 +64,7 @@ int main() {
 	vector<int>ans = Topo_sort(v, adj);
 	cout<<"Topological Sort: ";
 	for(auto i: ans) {
-		cout<<inverseNode[i];
-		if(i<ans.size()-1) {
-			cout<<"->";
-		}
+		cout<<inverseNode[i]<<" ";
 	}
 	return 0;
 }
