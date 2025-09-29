@@ -40,47 +40,50 @@ Output:
 #include<bits/stdc++.h>
 using namespace std;
 
-bool valid(int r, int c, int i, int j) {
+bool valid(int i, int j, int r, int c) {
 	return i>=0 and j>=0 and i<r and j<c;
 }
 
-void checkIsland(vector<vector<int>>&v, queue<pair<int,int>>&q, vector<vector<bool>>&visited, int r, int c) {
-	while(!q.empty()) {
-		int i=q.front().first;
-		int j=q.front().second;
-		visited[i][j]=true;
-		q.pop();
-		int rows[8]={-1, -1, -1, 0, 0, 1, 1, 1};
-		int cols[8]={-1, 0, 1, -1, 1, -1, 0, 1};
-		for(int k=0; k<8; k++) {
-			if(valid(r, c, i+rows[k], j+cols[k]) and !visited[i+rows[k]][j+cols[k]] and v[i+rows[k]][j+cols[k]]==1) {
-				q.push({i+rows[k], j+cols[k]});
+int count_island(vector<vector<int>>&adj) {
+	int r = adj.size();
+	int c = adj[0].size();
+	int rows[8] = {-1, -1, -1, 0, 0, 1, 1, 1};
+	int cols[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
+	queue<pair<int, int>>q;
+	int count=0;
+	for(int i=0; i<r; i++) {
+		for(int j=0; j<c; j++) {
+			if(adj[i][j]==1) {
+				q.push({i, j});
+				adj[i][j]=0;
+				count++;	
+				while(!q.empty()) {
+					int x = q.front().first;
+					int y = q.front().second;
+					q.pop();
+					for(int k=0; k<8; k++) {
+						if(valid(x+rows[k], y+cols[k], r, c) and adj[x+rows[k]][y+cols[k]]==1) {
+							adj[x+rows[k]][y+cols[k]]=0;
+							q.push({x+rows[k], y+cols[k]});
+						}
+					}
+				}
 			}
 		}
 	}
+	return count;
 }
 
 int main() {
 	int r, c;
 	cin>>r>>c;
-	vector<vector<int>>v(r, vector<int>(c));
+	vector<vector<int>>adj(r, vector<int>(c));
 	for(int i=0; i<r; i++) {
 		for(int j=0; j<c; j++) {
-			cin>>v[i][j];
+			cin>>adj[i][j];
 		}
 	}
-	vector<vector<bool>>visited(r,vector<bool>(c, false));
-	queue<pair<int, int>>q;
-	int count=0;
-	for(int i=0; i<r; i++) {
-		for(int j=0; j<c; j++) {
-			if(!visited[i][j] and v[i][j]==1) {
-				q.push({i,j});
-				checkIsland(v, q, visited, r, c);
-				count++;
-			}
-		}
-	}
+	int count = count_island(adj);
 	cout<<count<<endl;
 	return 0;
 }

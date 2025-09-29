@@ -1,68 +1,50 @@
 #include<bits/stdc++.h>
 using namespace std;
 
-// Undirected Unweighted Graph
+bool valid(int i, int j, int r, int c) {
+	return i>=0 and j>=0 and i<r and j<c;
+}
 
-vector<int>DFS(int start, vector<vector<int>>& adj, vector<bool>& visited) {
-	stack<int>s;
-	s.push(start);
-	visited[start]=true;
-	vector<int>ans;
-	while(!s.empty()){
-		int node = s.top();
-		s.pop();
-		ans.push_back(node);
-		for(auto i: adj[node]) {
-			if(!visited[i]) {
-				s.push(i);
-				visited[i]=true;
+int count_island(vector<vector<int>>&adj) {
+	int r = adj.size();
+	int c = adj[0].size();
+	int rows[8] = {-1, -1, -1, 0, 0, 1, 1, 1};
+	int cols[8] = {-1, 0, 1, -1, 1, -1, 0, 1};
+	queue<pair<int, int>>q;
+	int count=0;
+	for(int i=0; i<r; i++) {
+		for(int j=0; j<c; j++) {
+			if(adj[i][j]==1) {
+				q.push({i, j});
+				adj[i][j]=0;
+				count++;	
+				while(!q.empty()) {
+					int x = q.front().first;
+					int y = q.front().second;
+					q.pop();
+					for(int k=0; k<8; k++) {
+						if(valid(x+rows[k], y+cols[k], r, c) and adj[x+rows[k]][y+cols[k]]==1) {
+							adj[x+rows[k]][y+cols[k]]=0;
+							q.push({x+rows[k], y+cols[k]});
+						}
+					}
+				}
 			}
 		}
 	}
-	return ans;
+	return count;
 }
 
 int main() {
-	int v, e;
-	char n, x, y;
-	unordered_map<char, int>node;
-	unordered_map<int, char>inverse_node;
-	// cout<<"Enter the number of vertices and edges: ";
-	cin>>v>>e;
-	// cout<<"Enter the names of the nodes: ";
-	for(int i=0; i<v; i++) {
-		cin>>n;
-		node[n]=i;
-		inverse_node[i]=n;
+	int r, c;
+	cin>>r>>c;
+	vector<vector<int>>adj(r, vector<int>(c));
+	for(int i=0; i<r; i++) {
+		for(int j=0; j<c; j++) {
+			cin>>adj[i][j];
+		}
 	}
-	vector<vector<int>>adj(v);
-	// cout<<"Enter the starting edge and ending node: "<<endl;
-	for(int i=0; i<e; i++) {
-		// cout<<"node 1 -> node 2 : ";
-		cin>>x>>y;
-		adj[node[x]].push_back(node[y]);
-		adj[node[y]].push_back(node[x]);
-	}
-	vector<bool>visited(v, false);
-	// cout<<"Starting Node: ";
-	cin>>n;
-	vector<int>Traverse = DFS(node[n], adj, visited);
-	for(auto i:Traverse){
-		cout<<inverse_node[i]<<" ";
-	}
+	int count = count_island(adj);
+	cout<<count<<endl;
 	return 0;
 }
-
-/*
-Enter the number of vertices and edges: 5 6
-Enter the names of the nodes: A B C D E
-Enter the starting edge and ending node: 
-node 1 -> node 2 : A B
-node 1 -> node 2 : A C
-node 1 -> node 2 : B C
-node 1 -> node 2 : B D
-node 1 -> node 2 : C E
-node 1 -> node 2 : D E
-Starting Node: A
-A C E D B 
-*/
