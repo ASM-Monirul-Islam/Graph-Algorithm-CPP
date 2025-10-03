@@ -90,14 +90,15 @@ Includes problems, solutions, and STL-based code for **learning, practice, and i
 ✅ Ready to use for DSA practice, university assignments, and interviews
 
 
-##🛠️ Tech Stack
+## 🛠️ Tech Stack
 
 Language: C++17
 
 Compiler: g++ (MinGW / GCC)
 
 
-##🧑‍💻 Author
+## 🧑‍💻 Author
 
-###👤A S M Monirul Islam
+## 👤A S M Monirul Islam
+
 🎓 CSE Student @ World University of Bangladesh
