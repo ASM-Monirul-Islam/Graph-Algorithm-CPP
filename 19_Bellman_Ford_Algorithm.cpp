@@ -1,3 +1,20 @@
+/*
+🔹 What is Bellman–Ford?
+Bellman–Ford is a shortest path algorithm that works on graphs with negative edge weights. 
+Unlike Dijkstra, it can detect negative weight cycles too.
+Input: A weighted graph (directed or undirected, but usually directed).
+Output: The shortest distance from a source node to all other nodes (or detect if a negative cycle exists).
+
+🔹 Why do we need Bellman–Ford if we already have Dijkstra?
+Dijkstra fails when the graph has negative weights.
+Bellman–Ford handles negative weights.
+But it’s slower → O(V × E) time complexity.
+So:
+Use Dijkstra if weights ≥ 0 (faster).
+Use Bellman–Ford if weights can be negative (safer).
+*/
+
+
 #include<bits/stdc++.h>
 using namespace std;
 
@@ -36,7 +53,7 @@ int main() {
 	}
 	for(int i=0; i<e; i++) {
 		cin>>x>>y>>w;
-		adj[node[x]].emplace_back(node[y],w);
+		adj[node[x]].emplace_back(node[y],w); //Directed
 	}
 	cin>>start;
 	vector<int>ans = BellmanFord_algorithm(node[start], adj);
