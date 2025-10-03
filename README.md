@@ -51,6 +51,10 @@ Includes problems, solutions, and STL-based code for **learning, practice, and i
 
 └── 18_Dijkstra's_Algorithm.cpp
 
+└── 19_Bellman_Ford_Algorithm.cpp
+
+└── 20_Floyd_Warshall_Algorithm.cpp
+
 ---
 
 ## 📑 Algorithms Covered
@@ -70,7 +74,9 @@ Includes problems, solutions, and STL-based code for **learning, practice, and i
   - Directed Graph  
 - Topological Sort (DAG)  
 - Bipartite Graph Check  
-- Dijkstra’s Algorithm (Shortest Path in Weighted Graphs)  
+- Dijkstra’s Algorithm (Shortest Path in Weighted Graphs)
+- Bellman Ford Algorithm
+- Floyd Warshall ALgorithm (Multi Source Shortest Path Algorithm)
 
 ### 🧩 Problem-Based Implementations
 - Replace O’s with X’s  
