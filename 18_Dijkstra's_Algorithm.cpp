@@ -5,15 +5,19 @@ vector<int>Dijkstras_algorithm(int start, vector<vector<pair<int, int>>>&adj) {
 	int v = adj.size();
 	vector<int>distance(v, INT_MAX);
 	priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>>pq;
+
 	distance[start]=0;
+
 	pq.push({distance[start], start});
 
 	while(!pq.empty()) {
 		auto p = pq.top();
+		pq.pop();
 		int d = p.first;
 		int node = p.second;
-		pq.pop();
+
 		if(d>distance[node]) continue;
+
 		for(auto i:adj[node]) {
 			if(distance[i.first]>distance[node]+i.second) {
 				distance[i.first]=distance[node]+i.second;
@@ -36,12 +40,14 @@ int main() {
 	}
 	for(int i=0; i<e; i++) {
 		cin>>x>>y>>w;
-		adj[node[x]].emplace_back(node[y],w);
-		adj[node[y]].emplace_back(node[x],w); //Undirected
+		adj[node[x]].emplace_back(node[y], w);
+		adj[node[y]].emplace_back(node[x], w); //Undirected
 	}
+
 	cin>>start;
 	vector<int>ans = Dijkstras_algorithm(node[start], adj);
-	for(auto i: ans) {
+
+	for(auto i:ans) {
 		cout<<i<<" ";
 	}
 	return 0;
